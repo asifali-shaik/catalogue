@@ -6,11 +6,12 @@ pipeline{
         
     }
     options{
-        timeout(time: 5, units: 'MINUTES')
+        timeout(time: 5, unit: 'MINUTES')
     }
-    envrionment {
-        appversion = ""
+    environment {
+    KEY = 'value'
     }
+
     stages{
         stage('Read version '){
             steps{
