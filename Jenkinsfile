@@ -9,7 +9,7 @@ pipeline{
         timeout(time: 5, unit: 'MINUTES')
     }
     environment {
-    KEY = 'value'
+        appVersion = ""
     }
 
     stages{
