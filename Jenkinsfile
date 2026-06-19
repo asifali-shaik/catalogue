@@ -37,7 +37,7 @@ pipeline{
             steps{
                 script{
                     sh """
-                        docker build -t catalogue:$appversion
+                        docker build -t catalogue:$appversion .
                     """
                 }
             }
