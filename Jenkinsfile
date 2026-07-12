@@ -27,6 +27,7 @@ pipeline{
             }
 
         }
+    }
         stage('parameters'){
             steps{
                 script{
@@ -50,4 +51,5 @@ pipeline{
         }
 
     }
+    
 }
