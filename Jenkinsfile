@@ -14,4 +14,16 @@ pipeline{
 
         }
     }
+    post{
+        always{
+            echo 'happy !'
+        }
+        success{
+            echo 'pipeline success !!'
+        }
+        failure{
+            echo 'pipeline faliure !!!'
+        }
+
+    }
 }
