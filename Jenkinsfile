@@ -4,11 +4,16 @@ pipeline{
             label "roboshop"
         }
     }
+    envrionment{
+        project = "aws-project"
+    }
+
     stages{
         stage('hello'){
             steps{
                 script{
                     echo "hii jenkins"
+                    echo $project
                 }
             }
 
