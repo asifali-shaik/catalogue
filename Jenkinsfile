@@ -4,8 +4,8 @@ pipeline{
             label "roboshop"
         }
     }
-    envrionment{
-        project = 'aws-project'
+    options{
+        disableConcurrentBuilds() 
     }
 
     stages{
