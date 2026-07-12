@@ -6,7 +6,7 @@ pipeline{
     }
     options{
         disableConcurrentBuilds() 
-        timeout(time: 5 unit: 'MINUTES')
+         timeout(time: 1, unit: 'MINTUES')
     }
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
