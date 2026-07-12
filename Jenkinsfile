@@ -14,42 +14,22 @@ pipeline{
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
         choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
         password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
-
     }
-
     stages{
-        stage('hello'){
-            steps{
-                script{
-                    echo "hii jenkins"
-                    echo $project
-                }
-            }
-
-        }
-    }
         stage('parameters'){
             steps{
                 script{
                 echo "Hello ${params.PERSON}"
+
                 echo "Biography: ${params.BIOGRAPHY}"
+
                 echo "Toggle: ${params.TOGGLE}"
+
                 echo "Choice: ${params.CHOICE}"
+
                 echo "Password: ${params.PASSWORD}"
                 }
+            }
         }
-    }
-    post{
-        always{
-            echo 'happy !'
-        }
-        success{
-            echo 'pipeline success !!'
-        }
-        failure{
-            echo 'pipeline faliure !!!'
-        }
-
-    }
-    
+    } 
 }
