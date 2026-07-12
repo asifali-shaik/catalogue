@@ -5,7 +5,7 @@ pipeline{
         }
     }
     envrionment{
-        project = "aws-project"
+        project = 'aws-project'
     }
 
     stages{
