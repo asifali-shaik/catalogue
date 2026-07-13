@@ -32,8 +32,8 @@ pipeline{
                 script{
                     def scannerHome = tool 'sonar-8'   // name from Manage Jenkins → Tools → SonarQube Scanner installations
                     withSonarQubeEnv('sonar-server') {  // name from Manage Jenkins → System → SonarQube servers
-                    sh "${scannerHome}/bin/sonar-scanner"
-                 }
+                        sh "${scannerHome}/bin/sonar-scanner"
+                 }              
                 }
             }
         }
