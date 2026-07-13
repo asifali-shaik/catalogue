@@ -4,9 +4,6 @@ pipeline{
             label 'roboshop'
         }
     }
-/*     options{
-        timeout(time: 15, unit: 'MINUTES')
-    } */
     environment{
         appVersion = ""
     }
@@ -14,13 +11,11 @@ pipeline{
         stage('read package.json-version'){
             steps{
                 script{
-                // Read the package.json file into an object
-                 def packageJson = readJSON file: 'package.json'
-                 appVersion = pacakgejson.version
-        
-                // Access properties directly
-                echo "Building version: ${packageJson.version}"
-        
+                    // Read the package.json file into an object
+                    def packageJson = readJSON file: 'package.json'
+                    appVersion = packageJson.version
+
+                    echo "Building version: ${appVersion}"
                 }
             }
         }
@@ -28,17 +23,16 @@ pipeline{
             steps{
                 script{
                     sh """
-                        npm install    
+                        npm install
                     """
                 }
             }
         }
-        stage('building the docker image '){
+        stage('building the docker image'){
             steps{
                 script{
                     sh """
-
-                        docker build -t catalogue:${appVersion} 
+                        docker build -t catalogue:${appVersion} .
                     """
                 }
             }
