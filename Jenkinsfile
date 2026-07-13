@@ -27,6 +27,16 @@ pipeline{
                 }
             }
         }
+        stage('sonarqube-scaner'){
+            tools {
+                sonar 'sonar-8'
+            }
+            steps{
+                script{
+                    sh "sonnar-scanner"
+                }
+            }
+        }
         stage('building the docker image'){
             steps{
                 script{
