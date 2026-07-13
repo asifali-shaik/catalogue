@@ -4,9 +4,9 @@ pipeline{
             label 'roboshop'
         }
     }
-    options{
+/*     options{
         timeout(time: 15, unit: 'MINUTES')
-    }
+    } */
     environment{
         appVersion = ""
     }
