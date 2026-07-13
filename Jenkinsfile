@@ -33,7 +33,10 @@ pipeline{
             }
             steps{
                 script{
-                    sh "sonnar-scanner"
+                    withSonarQubeEnv('sonar-server') {
+                        sh "sonar-scanner"
+                    }
+
                 }
             }
         }
@@ -61,3 +64,4 @@ pipeline{
         }
     }
 }
+
