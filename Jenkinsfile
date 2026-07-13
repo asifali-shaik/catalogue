@@ -12,10 +12,8 @@ pipeline{
         stage('read package.json-version'){
             steps{
                 script{
-                    // Read the package.json file into an object
                     def packageJson = readJSON file: 'package.json'
                     appVersion = packageJson.version
-
                     echo "Building version: ${appVersion}"
                 }
             }
@@ -43,16 +41,13 @@ pipeline{
                 script{
                     withAWS(credentials: 'AWS-CREDS', region: 'us-east-1'){
                         sh """
-                            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 
-                            ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
-                            docker build -t  ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:${appVersion}.
+                            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com
+                            docker tag catalogue:${appVersion} ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:${appVersion}
                             docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue:${appVersion}
                         """
                     }
                 }
             }
         }
- 
     }
 }
-    
