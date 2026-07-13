@@ -28,15 +28,12 @@ pipeline{
             }
         }
         stage('sonarqube-scaner'){
-            tools {
-                sonar 'sonar-8'
-            }
             steps{
                 script{
-                    withSonarQubeEnv('sonar-server') {
-                        sh "sonar-scanner"
-                    }
-
+                    def scannerHome = tool 'sonar-8'   // name from Manage Jenkins → Tools → SonarQube Scanner installations
+                    withSonarQubeEnv('sonar-server') {  // name from Manage Jenkins → System → SonarQube servers
+                    sh "${scannerHome}/bin/sonar-scanner"
+                 }
                 }
             }
         }
