@@ -5,7 +5,7 @@ pipeline{
         }
     }
     options{
-        timeout(time: 1, unit: 'MINUTES')
+        timeout(time: 15, unit: 'MINUTES')
     }
     environment{
         appVersion = ""
@@ -37,7 +37,7 @@ pipeline{
             steps{
                 script{
                     sh """
-                    
+
                         docker build -t catalogue:${appVersion} 
                     """
                 }
