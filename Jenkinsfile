@@ -27,6 +27,15 @@ pipeline{
                 }
             }
         }
+        stage('unit-test'){
+            steps{
+                script{
+                    sh """
+                        npm test 
+                    """   
+                }
+            }
+        }
         stage('sonarqube-scaner'){
             steps{
                 script{
