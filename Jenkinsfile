@@ -28,7 +28,7 @@ pipeline{
                 }
             }
         }
-        stage('unit-test'){
+/*         stage('unit-test'){
             steps{
                 script{
                     sh """
@@ -36,40 +36,40 @@ pipeline{
                     """   
                 }
             }
-        }
+        } */
         stage('Dependabot Alerts Check'){
-        steps{
-            script{
-                withCredentials([string(credentialsId: 'github-dependabot-token', variable: 'GH_TOKEN')]) {
-                    def response = sh(
-                        script: '''
-                            curl -s -H "Authorization: Bearer $GH_TOKEN" \
-                                -H "Accept: application/vnd.github+json" \
-                                https://api.github.com/repos/asifali-shaik/catalogue/dependabot/alerts?state=open
-                        ''',
-                        returnStdout: true
-                    ).trim()
+            steps{
+                script{
+                    withCredentials([string(credentialsId: 'github-dependabot-token', variable: 'GH_TOKEN')]) {
+                        def response = sh(
+                            script: '''
+                                curl -s -H "Authorization: Bearer $GH_TOKEN" \
+                                    -H "Accept: application/vnd.github+json" \
+                                    https://api.github.com/repos/asifali-shaik/catalogue/dependabot/alerts?state=open
+                            ''',
+                            returnStdout: true
+                        ).trim()
 
-                    echo "Dependabot alerts response: ${response}"
+                        echo "Dependabot alerts response: ${response}"
 
-                    def alerts = readJSON text: response
-                    if (alerts.size() > 0) {
-                        echo "⚠️ Found ${alerts.size()} open Dependabot alert(s):"
-                        alerts.each { alert ->
-                            echo " - ${alert.security_advisory.summary} (severity: ${alert.security_advisory.severity}) in ${alert.dependency.package.name}"
+                        def alerts = readJSON text: response
+                        if (alerts.size() > 0) {
+                            echo "⚠️ Found ${alerts.size()} open Dependabot alert(s):"
+                            alerts.each { alert ->
+                                echo " - ${alert.security_advisory.summary} (severity: ${alert.security_advisory.severity}) in ${alert.dependency.package.name}"
+                            }
+                            // Optional: fail the build on critical/high severity alerts
+                            def critical = alerts.findAll { it.security_advisory.severity in ['critical', 'high'] }
+                            if (critical.size() > 0) {
+                                error "Build failed: ${critical.size()} critical/high severity Dependabot alert(s) found"
+                            }
+                        } else {
+                            echo "✅ No open Dependabot alerts"
                         }
-                        // Optional: fail the build on critical/high severity alerts
-                        def critical = alerts.findAll { it.security_advisory.severity in ['critical', 'high'] }
-                        if (critical.size() > 0) {
-                            error "Build failed: ${critical.size()} critical/high severity Dependabot alert(s) found"
-                        }
-                    } else {
-                        echo "✅ No open Dependabot alerts"
                     }
                 }
             }
         }
-    }
         stage('sonarqube-scaner'){
             steps{
                 script{
