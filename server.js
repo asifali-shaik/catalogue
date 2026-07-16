@@ -177,7 +177,11 @@ function mongoLoop() {
 mongoLoop();
 
 // fire it up!
-const port = process.env.CATALOGUE_SERVER_PORT || '8080';
-app.listen(port, () => {
-    logger.info('Started on port', port);
-});
+if (require.main === module) {
+    const port = process.env.CATALOGUE_SERVER_PORT || '8080';
+    app.listen(port, () => {
+        logger.info('Started on port', port);
+    });
+}
+
+module.exports = app;
